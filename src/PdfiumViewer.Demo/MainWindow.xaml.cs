@@ -118,9 +118,24 @@ namespace PdfiumViewer.Demo
             {
                 var bytes = File.ReadAllBytes(dialog.FileName);
                 var mem = new MemoryStream(bytes);
-                Renderer.OpenPdf(mem);
+                // Renderer.OpenPdf(mem);
+                OpenDocument(mem);
             }
         }
+
+        private void OpenDocument(Stream openMem)
+        {
+            try
+            {
+                Renderer.OpenPdf(openMem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
